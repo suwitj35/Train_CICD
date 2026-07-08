@@ -1,28 +1,24 @@
 name: Hello World
-
 on: 
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - ".github/workflows/*" # สั่งให้ยกเว้น Path นี้
-  pull_request:
-    branches:
-      - main
-  repository_dispatch: # สั่งให้ทำงานผ่าน การเรียก API
-    types:
-      - "on-demand-test"
-
+   push:
+     branches: [main]
+     paths-ignore:
+      - '.github/workflows/*'   #สั่งให้ยกเว้น Patch นี้
+   pull_request:
+     branches: [main]
+   repository_dispatch:   #สั่งให้ทำงานผ่าน การเรียก API
+    types: ["on-demand-test"]
 jobs:
-  hello-job:
-    runs-on: ubuntu-latest # เรียกใช้ OS
+  hello-job :
+    runs-on: ubuntu-latest  # เรียกใช้ OS
     steps:
-      - name: run a one line script
-        run: echo "Hello World Github Actions"
+    - name: run a one line script
+      run: echo Hello World Github Actions
+    - name: retrieve client payload
+      run: echo "client send status :${{github.event.client_payload.status}}"
 
-  Seccond-job: # เพิ่ม job ที่ 2
-    runs-on: windows-latest # แก้ไขจาก windows-lasttest
-    needs: hello-job # สั่งให้ทำงานแบบ sequential
+  Seccond-job:  #เพิ่ม job ที่ 2
+    runs-on: windows-lasttest
+    needs: hello-job  #สั่ง่ให้ทำงานแบบ sequent
     steps:
-      - name: Run on Windows
-        run: echo "this Job is runing on ${{ runner.os }}"
+    - run: echo "this Job is runing on ${{runner.os}}"
