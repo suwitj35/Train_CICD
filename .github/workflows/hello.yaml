@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: run a one line script
-      run: echo "Hello World Github Actions"
+      run: echo Hello World Github Actions
   Seccond-job:
     runs-on: windows-lasttest
     needs: hello-job
