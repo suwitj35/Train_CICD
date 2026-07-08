@@ -9,14 +9,18 @@ on:
    repository_dispatch:   #สั่งให้ทำงานผ่าน การเรียก API
     types: ["on-demand-test"]
 jobs:
-  hello-job :
+    echo-vars:
+    run-on: ubuntu-lates
+    steps:
+     - name : Echo Github Variable
+       run:  echo "This job trigger by ${{github.event.name}}"
+ hello-job :
     runs-on: ubuntu-latest  # เรียกใช้ OS
     steps:
-    - name: run a one line script
-      run: echo Hello World Github Actions
-    - name: retrieve client payload
-      run: echo "client send status :${{github.event.client_payload.status}}"
-
+       - name: run a one line script
+         run: echo Hello World Github Actions
+       - name: retrieve client payload
+         run: echo "client send status :${{github.event.client_payload.status}}"
   Seccond-job:  #เพิ่ม job ที่ 2
     runs-on: windows-latest
     needs: hello-job  #สั่ง่ให้ทำงานแบบ sequent
