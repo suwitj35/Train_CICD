@@ -2,10 +2,10 @@ name: Hello World
 on: 
    push:
      branches: [main]
-     paths-ignore:
-        - '.github/workflows/*'   #สั่งให้ยกเว้น Patch นี้
+    # paths-ignore:
+    #    - '.github/workflows/*'   #สั่งให้ยกเว้น Patch นี้
    pull_request:
-     branches: [main]
+      branches: [main]
    repository_dispatch:   #สั่งให้ทำงานผ่าน การเรียก API
     types: ["on-demand-test"]
 jobs:
