@@ -1,24 +1,32 @@
-name: Hello World
-on: 
-   push:
-     branches: [main]
-     paths-ignore:
-        - ".github/workflows/*"   #สั่งให้ยกเว้น Patch นี้
-   pull_request:
+name: My Workflow
+ 
+on:
+  push:
+    branches: [main]
+    # paths-ignore:
+    #   - '.github/workflows/*'
+    pull_request:
       branches: [main]
-   repository_dispatch:   #สั่งให้ทำงานผ่าน การเรียก API
-    types: ["on-demand-test"]
+ 
+    repository_dispatch:
+      types: ["on-demand-test"]
+ 
 jobs:
-  hello-job :
-    runs-on: ubuntu-latest  # เรียกใช้ OS
+  myJob:
+    runs-on: ubuntu-latest
     steps:
-    - name: run a one line script
-      run: echo Hello World Github Actions
-    - name: retrieve client payload
-      run: echo "client send status :${{github.event.client_payload.status}}"
-
-  Seccond-job:  #เพิ่ม job ที่ 2
+       - name: Run a one-line script
+         run: echo Hello, world
+ 
+       - name: Retrieve client payload
+         env:
+          PAYLOAD_STATUS: ${{ github.event.client_payload.status }}
+         run: echo "Client payload $PAYLOAD_STATUS"
+  secondJob:
     runs-on: windows-latest
-    needs: hello-job  #สั่ง่ให้ทำงานแบบ sequent
+    needs: myJob
     steps:
-     - run: echo "this Job is runing on ${{runner.os}}"
+       - name: Run a multi-line script
+         run: |
+           echo Add other actions to build ${{ runner.os }} project.,
+           echo test, and deploy your project.
