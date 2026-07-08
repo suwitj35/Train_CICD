@@ -10,3 +10,7 @@ jobs:
     steps:
     - name: run a one line script
       run: echo Hello World Github Actions
+  Seccond-job:
+    run-on: windows-lasttest
+   stepps:
+   - run: echo "this Job is runing on "
