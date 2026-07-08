@@ -11,7 +11,7 @@ jobs:
     - name: run a one line script
       run: echo Hello World Github Actions
   Seccond-job:
-    run-on: windows-lasttest
-    need: hello-job
-   stepps:
-      - run: echo "this Job is runing on ${{runner.os}} "
+    runs-on: windows-lasttest
+    needs: hello-job
+    steps:
+    - run: echo "this Job is runing on ${{runner.os}} "
