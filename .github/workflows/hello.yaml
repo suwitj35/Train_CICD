@@ -10,15 +10,20 @@ on:
     types: ["on-demand-test"]
 jobs:
     echo-vars:
-      run-on: ubuntu-lates
+      runs-on: ubuntu-latest
       steps:
-          - name : Echo Github Variable
+       - name : Echo Github Variable
          env:
             APP_VERSION : "2.2.2"
-         run:  echo "This job trigger by ${{github.event.name}}"
-         run:  echo "This job trigger by ${{github.repository}}"
-         run:  echo "This job trigger by ${{github.ref_name}}"
-         run:  echo "This is a ${{env.APP_NAME}} Version ${{env.APP_VERSION}}"
+            RUNNER_CONTEX: ${{toJson(runner)}}
+         run: 
+             echo "The Database password is ${{secrets.DB_PASSWORD}}"
+           # echo "This job trigger by ${{github.event.name}}"
+           # echo "This job trigger by ${{github.repository}}"
+            #echo "This job trigger by ${{github.ref_name}}"
+            #echo "This is a ${{env.APP_NAME}} Version ${{env.APP_VERSION}}"
+            #echo "$RUNNER_CONTEX"
+           # echo "The Database password is ${{secrets.DB_PASSWORD}}"
     hello-job :
        runs-on: ubuntu-latest  # เรียกใช้ OS
        steps:
