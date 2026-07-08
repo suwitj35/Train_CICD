@@ -11,11 +11,14 @@ on:
 jobs:
     echo-vars:
       run-on: ubuntu-lates
-     steps:
-        - name : Echo Github Variable
-          run:  echo "This job trigger by ${{github.event.name}}"
-          run:  echo "This job trigger by ${{github.repository}}"
-          run:  echo "This job trigger by ${{github.ref_name}}"
+      steps:
+          - name : Echo Github Variable
+         env:
+            APP_VERSION : "2.2.2"
+         run:  echo "This job trigger by ${{github.event.name}}"
+         run:  echo "This job trigger by ${{github.repository}}"
+         run:  echo "This job trigger by ${{github.ref_name}}"
+         run:  echo "This is a ${{env.APP_NAME}} Version ${{env.APP_VERSION}}"
     hello-job :
        runs-on: ubuntu-latest  # เรียกใช้ OS
        steps:
