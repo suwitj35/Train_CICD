@@ -3,7 +3,7 @@ on:
    push:
      branches: [main]
      paths-ignore:
-      - '.github/workflows/*'   #สั่งให้ยกเว้น Patch นี้
+        - '.github/workflows/*'   #สั่งให้ยกเว้น Patch นี้
    pull_request:
      branches: [main]
    repository_dispatch:   #สั่งให้ทำงานผ่าน การเรียก API
@@ -18,7 +18,7 @@ jobs:
       run: echo "client send status :${{github.event.client_payload.status}}"
 
   Seccond-job:  #เพิ่ม job ที่ 2
-    runs-on: windows-lasttest
+    runs-on: windows-lastest
     needs: hello-job  #สั่ง่ให้ทำงานแบบ sequent
     steps:
     - run: echo "this Job is runing on ${{runner.os}}"
