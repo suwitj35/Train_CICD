@@ -18,8 +18,8 @@ jobs:
             RUNNER_CONTEX: ${{toJson(runner)}}
          run: 
              echo "The Database password is ${{secrets.DB_PASSWORD}}"
-           # echo "This job trigger by ${{github.event.name}}"
-           # echo "This job trigger by ${{github.repository}}"
+            echo "This job trigger by ${{github.event.name}}"
+            #echo "This job trigger by ${{github.repository}}"
             #echo "This job trigger by ${{github.ref_name}}"
             #echo "This is a ${{env.APP_NAME}} Version ${{env.APP_VERSION}}"
             #echo "$RUNNER_CONTEX"
