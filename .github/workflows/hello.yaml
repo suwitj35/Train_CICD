@@ -18,7 +18,7 @@ jobs:
       run: echo "client send status :${{github.event.client_payload.status}}"
 
   Seccond-job:  #เพิ่ม job ที่ 2
-    runs-on: windows-lastest
+    runs-on: windows-latest
     needs: hello-job  #สั่ง่ให้ทำงานแบบ sequent
     steps:
      - run: echo "this Job is runing on ${{runner.os}}"
