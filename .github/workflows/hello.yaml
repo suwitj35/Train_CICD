@@ -21,4 +21,4 @@ jobs:
     runs-on: windows-lastest
     needs: hello-job  #สั่ง่ให้ทำงานแบบ sequent
     steps:
-    - run: echo "this Job is runing on ${{runner.os}}"
+     - run: echo "this Job is runing on ${{runner.os}}"
