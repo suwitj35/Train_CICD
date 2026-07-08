@@ -1,0 +1,11 @@
+name: workflow for Feature Branch
+on:
+  push:
+    branches: [feature/**]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check new feature quality
+        run: echo "Checking new feature quality"
+ 
