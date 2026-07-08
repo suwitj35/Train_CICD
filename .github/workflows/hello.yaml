@@ -20,8 +20,8 @@ jobs:
              echo "The Database password is ${{secrets.DB_PASSWORD}}"
             echo "This job event name by ${{github.event.name}}"
             echo "This job repository by ${{github.repository}}"
-            #echo "This job trigger by ${{github.ref_name}}"
-            #echo "This is a ${{env.APP_NAME}} Version ${{env.APP_VERSION}}"
+            echo "This job ref_name by ${{github.ref_name}}"
+            echo "This is a ${{env.APP_NAME}} Version ${{env.APP_VERSION}}"
             #echo "$RUNNER_CONTEX"
            # echo "The Database password is ${{secrets.DB_PASSWORD}}"
     hello-job :
