@@ -25,6 +25,7 @@ jobs:
             #echo "$RUNNER_CONTEX"
            # echo "The Database password is ${{secrets.DB_PASSWORD}}"
     hello-job :
+       if: ${{github.event_name != 'repository_dispatch'}}
        runs-on: ubuntu-latest  # เรียกใช้ OS
        steps:
           - name: run a one line script
@@ -32,7 +33,9 @@ jobs:
        #   - name: retrieve client payload
        #     run: echo "client send status :${{github.event.client_payload.status}}"
     Seccond-job:  #เพิ่ม job ที่ 2
+       if: ${{ github.event_name == 'on-demand-test' }}  
        runs-on: windows-latest
        needs: hello-job  #สั่ง่ให้ทำงานแบบ sequent
        steps:
          - run: echo "this Job is runing on ${{runner.os}}"
+         
