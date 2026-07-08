@@ -14,4 +14,4 @@ jobs:
     runs-on: windows-lasttest
     needs: hello-job
     steps:
-    - run: echo "this Job is runing on ${{runner.os}} "
+    - run: echo "this Job is runing on "
