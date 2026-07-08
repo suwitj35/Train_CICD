@@ -7,7 +7,7 @@ on:
    pull_request:
       branches: [main]
    repository_dispatch:   #สั่งให้ทำงานผ่าน การเรียก API
-    types: ["on-demand-test"]
+      types: [on-demand-test]
 jobs:
     echo-vars:
       runs-on: ubuntu-latest
