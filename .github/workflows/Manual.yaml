@@ -1,42 +1,46 @@
-on:
+on: 
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Target Environment'
+        description: 'Target environment for deployment'
         required: true
-        type: choice
+        type: choice   # เพิ่ม parameter สำหรับการรัน UI Testing
         options:
-          - "Staging"
-          - "Production"
+          - 'staging'
+          - 'production'
+        default: 'staging'
       run_ui_tests:
-        description: 'Run UI testing'
-        required: true
-        type: boolean
-        default: false
+          description: 'Run UI testsing' 
+          required: true
+          type: boolean
+          default: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      build_status: ${{ steps.set-status.outputs.status }}
+      build_status: ${{ steps.set_status.outputs.status }}   #ตัวแปร output สำหรับส่งค่าไปยัง job ต่อไป ของ step นี้
     steps:
-      - name: Checkout source code
-        uses: actions/checkout@v7.0.0
+      - name: Checkosut Source Code
+        uses: actions/checkout@v7.0.0 #ได้หจาก Marketplace ที่อยู่ขวามือ
         with:
-          repository: ${{ github.repository }}
-          ref: ${{ github.ref_name }}
-      - name: List files in workspaces
-        run: ls ${{ github.workspace }}
-      - name: Set an output status
-        id: set-status
+          repository: ${{github.repository}}
+          ref: ${{github.ref_name}}
+      - name: list files in workspaces
+        run: ls ${{github.workspace}}
+      - name: set output status
+        id: set_status
         run: |
-          echo "Get result from building process"
-          echo "status=success" >> $GITHUB_OUTPUT
+            echo "Get result from building process"
+            echo "status=success" >> $GITHUB_OUTPUT
+
+
   test:
-    needs: build
+    needs: build  #สั่งให้ job นี้ทำงานหลังจาก job build เสร็จ
     runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.run_ui_tests == 'true' }}
     steps:
       - name: UI Testing
-        if: ${{ inputs.run_ui_tests }}
-        run: |
-          echo "The build status is ${{ needs.build.outputs.build_status }}"
-          echo "Run UI testing tools in ${{ inputs.environment }} environment"
+        run: | # เรียกใช้งานตัวแปร output ของ job build
+          echo "The buile status is ${{needs.build.outputs.build_status}}" 
+          echo "Run UI testsing tools in  ${{github.event.inputs.environment}} environment"      
