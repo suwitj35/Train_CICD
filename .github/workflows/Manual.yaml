@@ -43,4 +43,4 @@ jobs:
       - name: UI Testing
         run: # เรียกใช้งานตัวแปร output ของ job build
           echo "The buile status is ${{needs.build.outputs.build_status}}" 
-          echo "Run UI testsing tools in  ${github.event.inputs.environment} environment"      
+          echo "Run UI testsing tools in  ${{github.event.inputs.environment}} environment"      
