@@ -3,14 +3,14 @@ on:
     inputs:
       environment:
         description: 'Target environment for deployment'
-        required: false
-        type: choice
+        required: true
+        type: choice   # เพิ่ม parameter สำหรับการรัน UI Testing
         options:
           - 'staging'
           - 'production'
         default: 'staging'
       run_ui_tests:
-          description: 'Run UI testsing' # เพิ่ม parameter สำหรับการรัน UI Testing
+          description: 'Run UI testsing' 
           required: true
           type: boolean
           default: false
@@ -18,6 +18,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      build_status: ${{ steps.set_status.outputs.status }}   #ตัวแปร output สำหรับส่งค่าไปยัง job ต่อไป ของ step นี้
     steps:
       - name: Checkosut Source Code
         uses: actions/checkout@v7.0.0 #ได้หจาก Marketplace ที่อยู่ขวามือ
@@ -26,6 +28,13 @@ jobs:
           ref: ${{github.ref_name}}
       - name: list files in workspaces
         run: ls ${{github.workspace}}
+      - name: set output status
+        id: set_status
+        run: 
+          echo "Get result from building process"
+          echo "status=success" >> $GITHUB_OUTPUT
+
+
   test:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.run_ui_tests == 'true' }}
