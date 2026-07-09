@@ -36,8 +36,11 @@ jobs:
 
 
   test:
+    needs: build  #สั่งให้ job นี้ทำงานหลังจาก job build เสร็จ
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.run_ui_tests == 'true' }}
     steps:
       - name: UI Testing
-        run: echo "Run UI testsing tools in  ${github.event.inputs.environment} environment"      
+        run: # เรียกใช้งานตัวแปร output ของ job build
+          echo "The buile status is ${{needs.build.outputs.build_status}}" 
+          echo "Run UI testsing tools in  ${github.event.inputs.environment} environment"      
