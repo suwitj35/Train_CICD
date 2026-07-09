@@ -10,7 +10,7 @@ on:
           - 'production'
         default: 'staging'
       run_ui_tests:
-          description: 'Run UI testsing'
+          description: 'Run UI testsing' # เพิ่ม parameter สำหรับการรัน UI Testing
           required: true
           type: boolean
           default: false
@@ -28,7 +28,7 @@ jobs:
         run: ls ${{github.workspace}}
   test:
     runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.run_ui_tests == 'true' }}
     steps:
       - name: UI Testing
-        if: ${{ github.event.inputs.run_ui_tests == 'true' }}
         run: echo "Run UI testsing tools in  ${github.event.inputs.environment} environment"      
