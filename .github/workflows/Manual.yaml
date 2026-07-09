@@ -1,122 +1,42 @@
-name: javacript ci
-
-on: [push, pull_request]
-
-jobs:
-
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-
-      - name: Checkout sosurce code
-
-        uses: actions/checkout@v7.0.0
-
-        with:
-
-          repository: ${{ github.repository }}
-
-      - name: Setup Node.js environment
-
-        uses: actions/setup-node@v6.4.0
- 
-      - name: build project
-
-        run: |
-
-          npm ci
-
-          npm run build --if-present
-
-      - name: run tests project
-
-        run: |
-
-          npm test
- 
 on:
-
   workflow_dispatch:
-
     inputs:
-
       environment:
-
         description: 'Target Environment'
-
         required: true
-
         type: choice
-
         options:
-
           - "Staging"
-
           - "Production"
-
       run_ui_tests:
-
         description: 'Run UI testing'
-
         required: true
-
         type: boolean
-
         default: false
-
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     outputs:
-
       build_status: ${{ steps.set-status.outputs.status }}
-
     steps:
-
       - name: Checkout source code
-
         uses: actions/checkout@v7.0.0
-
         with:
-
           repository: ${{ github.repository }}
-
           ref: ${{ github.ref_name }}
-
       - name: List files in workspaces
-
         run: ls ${{ github.workspace }}
-
       - name: Set an output status
-
         id: set-status
-
         run: |
-
           echo "Get result from building process"
-
           echo "status=success" >> $GITHUB_OUTPUT
-
   test:
-
     needs: build
-
     runs-on: ubuntu-latest
-
     steps:
-
       - name: UI Testing
-
         if: ${{ inputs.run_ui_tests }}
-
         run: |
-
           echo "The build status is ${{ needs.build.outputs.build_status }}"
-
           echo "Run UI testing tools in ${{ inputs.environment }} environment"
- 
