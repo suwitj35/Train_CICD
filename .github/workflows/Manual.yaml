@@ -3,7 +3,7 @@ on:
     inputs:
       environment:
         description: 'Target environment for deployment'
-        required: true
+        required: false
         type: choice
         options:
           - 'staging'
