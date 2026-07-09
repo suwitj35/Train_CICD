@@ -30,7 +30,7 @@ jobs:
         run: ls ${{github.workspace}}
       - name: set output status
         id: set_status
-        run:  
+        run: 
           echo "Get result from building process"
           echo "status=success" >> $GITHUB_OUTPUT
 
