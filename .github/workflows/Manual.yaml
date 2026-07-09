@@ -1,13 +1,34 @@
 on: 
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment for deployment'
+        required: true
+        type: choice
+        options:
+          - 'staging'
+          - 'production'
+        default: 'staging'
+      run_ui_tests:
+          description: 'Run UI testsing'
+          required: true
+          type: boolean
+          default: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkosut Source Code
-        uses: actions/checkout@v7.0.0
+        uses: actions/checkout@v7.0.0 #ได้หจาก Marketplace ที่อยู่ขวามือ
         with:
           repository: ${{github.repository}}
           ref: ${{github.ref_name}}
       - name: list files in workspaces
         run: ls ${{github.workspace}}
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: UI Testing
+        if: ${{ github.event.inputs.run_ui_tests == 'true' }}
+        run: echo "Run UI testsing tools in  ${github.event.inputs.environment} environment"      
